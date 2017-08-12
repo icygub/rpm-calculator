@@ -31,11 +31,12 @@ public class RPNStack {
         double popped;
         if(size == 0) {
             System.out.println("Nothing to pop!");
-            return -1.23456;
+            return -1.2345;
         } else if(size == 1){
             popped = tail.data;
             head = null;
             tail = null;
+            //now there is no data in the stack
         } else {
             popped = tail.data;
             tail = tail.prev;
@@ -44,5 +45,34 @@ public class RPNStack {
         }
         size--;
         return popped;
+    }
+
+    public double peek() {
+        if(size == 0)
+            return -1.2345;
+        else
+            return tail.data;
+    }
+
+    public double calculateOperation(char operator) {
+        double result = -1.2345;
+        if(tail != null && tail.prev != null) { //minimum two numbers in the stack
+            double first = pop();
+            double second = pop();
+
+            switch(operator) {
+                case '+':   result = push(second + first);
+                            break;
+                case '-':   result = push(second - first);
+                            break;
+                case '*':   result = push(second * first);
+                            break;
+                case '/':   result = push(second / first);
+                            break;
+                default:    System.out.println("Invalid operator");
+                            break;
+            }
+        }
+        return result;
     }
 }
