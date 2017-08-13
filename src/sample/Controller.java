@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Controller {
     private RPNStack rpnStack;
@@ -116,6 +117,7 @@ public class Controller {
         if(! lastActionWasOperator) { //prevents user from keying something like "+" "ENTER"
             if(textDisplay.getLength() != 0)
                 rpnStack.push(Double.parseDouble(textDisplay.getText()));
+
             yRegister.setText(String.valueOf(rpnStack.peek()));
             textDisplay.clear();
         }
@@ -147,7 +149,18 @@ public class Controller {
     }
 
     public void onRetrieveButtonClick() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH));
+            String line = bufferedReader.readLine();
+            textDisplay.setText(line);
+            lastActionWasOperator = false;
+            bufferedReader.close();
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onButtonResetClick() { //not working
