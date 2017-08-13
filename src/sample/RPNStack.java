@@ -44,9 +44,7 @@ public class RPNStack {
     public double peek() {
         if(size == 0) {
             return 0; //this will be displayed in the Y register
-        }
-
-        else {
+        } else {
             return tail.data;
         }
     }
