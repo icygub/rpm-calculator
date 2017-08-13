@@ -49,9 +49,16 @@ public class RPNStack {
 
     public double peek() {
         if(size == 0)
-            return -1.2345;
+            return 0; //this will be displayed in the Y register
         else
             return tail.data;
+    }
+
+    public double peekBefore() {
+        if(size == 0 || size == 1)
+            return 0;
+        else
+            return tail.prev.data;
     }
 
     public double calculateOperation(char operator) {
