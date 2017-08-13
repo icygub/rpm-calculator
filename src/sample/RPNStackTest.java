@@ -36,12 +36,20 @@ public class RPNStackTest {
     @org.junit.Test
     public void calculateOperation() throws Exception {
         RPNStack stack = new RPNStack();
-        System.out.println(stack.push(1));
-        System.out.println(stack.push(2));
-        System.out.println(stack.push(3));
-        System.out.println(stack.push(4));
-        System.out.println(stack.push(5));
-        System.out.println(stack.push(6));
-        System.out.println(stack.push(3));
+        for (int i = 1; i < 6; i++) {
+            System.out.println(stack.push(i));
+
+        }
+        System.out.println("==============");
+
+//        System.out.println(stack.pop());
+//        System.out.println(stack.peek());
+
+//        System.out.println(stack.peek());
+//        System.out.println(stack.peekBefore());
+//        System.out.println(stack.peek());
+//        System.out.println(stack.peekBefore());
+
+
     }
 }

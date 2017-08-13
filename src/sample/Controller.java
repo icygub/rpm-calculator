@@ -29,6 +29,7 @@ public class Controller {
     @FXML private Button buttonStore;
     @FXML private Button buttonRetrieve;
     @FXML private Button buttonBack;
+    @FXML private Button buttonReset;
 
     public Controller() {
         rpnStack = new RPNStack();
@@ -66,11 +67,21 @@ public class Controller {
     }
 
     public void onOperatorButtonClick(ActionEvent e) {
-        if(textDisplay.getLength() != 0) { //&& !lastActionWasOperator) {
-            rpnStack.push(Double.parseDouble(textDisplay.getText()));
+        if(textDisplay.getLength() != 0 && rpnStack.getSize() > 1) {
+            if(! lastActionWasOperator)
+                rpnStack.push(Double.parseDouble(textDisplay.getText()));
 
             if(e.getSource().equals(buttonAdd)) {
                 rpnStack.calculateOperation('+');
+                yRegister.setText(String.valueOf(rpnStack.peekBefore()));
+            } else if(e.getSource().equals(buttonSubtract)) {
+                rpnStack.calculateOperation('-');
+                yRegister.setText(String.valueOf(rpnStack.peekBefore()));
+            } else if(e.getSource().equals(buttonMultiply)) {
+                rpnStack.calculateOperation('*');
+                yRegister.setText(String.valueOf(rpnStack.peekBefore()));
+            } else {
+                rpnStack.calculateOperation('/');
                 yRegister.setText(String.valueOf(rpnStack.peekBefore()));
             }
 
@@ -87,12 +98,15 @@ public class Controller {
     }
 
     public void onEnterButtonClick() { //this method appears to be good
+        System.out.println("Size Before: " + rpnStack.getSize());
         if(! lastActionWasOperator) { //prevents user from keying something like "+" "ENTER"
             if(textDisplay.getLength() != 0)
                 rpnStack.push(Double.parseDouble(textDisplay.getText()));
             yRegister.setText(String.valueOf(rpnStack.peek()));
             textDisplay.clear();
         }
+        System.out.println("Size After: " + rpnStack.getSize());
+        System.out.println("===");
     }
 
     public void onBackButtonClick() {
@@ -101,8 +115,20 @@ public class Controller {
             textDisplay.setText(textDisplay.getText(0, length-1)); //removes the last char
     }
 
-    public void onStoreRetrieveButtonClick(ActionEvent e) {
+    public void onStoreRetrieveButtonClick() {
+        Node current = rpnStack.getHead();
+        for (int i = 0; i < rpnStack.getSize(); i++) {
+            System.out.println(current.data);
+            current = current.next;
+        }
+        System.out.println("===");
+    }
 
+    public void onButtonResetClick() { //not working
+        rpnStack.clearStack();
+        textDisplay.clear();
+        yRegister.clear();
+        System.out.println("Size after clear: " + rpnStack.getSize());
     }
 
 }

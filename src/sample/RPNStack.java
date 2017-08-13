@@ -18,7 +18,7 @@ public class RPNStack {
             head = node;
             tail = node;
         } else {
-            tail.next = node;
+            tail.setNext(node);
             node.prev = tail;
             tail = node;
         }
@@ -31,7 +31,7 @@ public class RPNStack {
         double popped;
         if(size == 0) {
             System.out.println("Nothing to pop!");
-            return -1.2345;
+            return 0;
         } else if(size == 1){
             popped = tail.data;
             head = null;
@@ -62,7 +62,7 @@ public class RPNStack {
     }
 
     public double calculateOperation(char operator) {
-        double result = -1.2345;
+        double result = 0;
         if(tail != null && tail.prev != null) { //minimum two numbers in the stack
             double first = pop();
             double second = pop();
@@ -80,6 +80,21 @@ public class RPNStack {
                             break;
             }
         }
+        size--;
         return result;
+    }
+
+    public void clearStack() {
+        while(size > 0) {
+            pop();
+        }
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Node getHead() {
+        return head;
     }
 }

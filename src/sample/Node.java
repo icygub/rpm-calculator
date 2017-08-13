@@ -20,4 +20,8 @@ public class Node {
         next = new Node(data);
     }
 
+    public void setNext(Node node) {
+        next = node;
+    }
+
 }
