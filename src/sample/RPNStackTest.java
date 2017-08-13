@@ -3,58 +3,66 @@ package sample;
 import static org.junit.Assert.*;
 
 public class RPNStackTest {
+
     @org.junit.Test
-    public void push() throws Exception {
+    public void push() throws Exception { //testing complete
         RPNStack stack = new RPNStack();
-        System.out.println(stack.push(1));
-        System.out.println(stack.push(2));
-        System.out.println(stack.push(3));
-        System.out.println(stack.push(4));
-        System.out.println(stack.push(5));
-        System.out.println(stack.push(6));
-        System.out.println(stack.push(7));
-
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-        System.out.println(stack.pop());
-
+        for (int i = 1; i < 8; i++) {
+            stack.push(i);
+            assertTrue(stack.getTail().data == i);
+        }
     }
 
     @org.junit.Test
-    public void pop() throws Exception {
-        char c = '/';
-        System.out.println(c);
+    public void pop() throws Exception { //testing complete
+        RPNStack stack = new RPNStack();
+        for (int i = 1; i < 8; i++) {
+            stack.push(i);
+        }
+
+        for (int i = 7; i > 0; i--) {
+            assertTrue(stack.getTail().data == i);
+            stack.pop();
+        }
     }
 
     @org.junit.Test
-    public void calculateOperation() throws Exception {
-        String string = "hello.";
-        String string2 = string.substring(string.length()-1, string.length());
-        System.out.println(string2);
-        double d = 1. + 2;
-        System.out.println(d);
-//        RPNStack stack = new RPNStack();
-//        for (int i = 1; i < 6; i++) {
-//            System.out.println(stack.push(i));
-//
-//        }
-//        System.out.println("==============");
+    public void peek() throws Exception {
+        RPNStack stack = new RPNStack();
+        for (int i = 1; i < 8; i++) {
+            stack.push(i);
+            assertTrue(stack.peek() == i);
+        }
+    }
 
-//        System.out.println(stack.pop());
-//        System.out.println(stack.peek());
+    @org.junit.Test
+    public void calculateOperation() throws Exception { //testing complete
+        RPNStack stack = new RPNStack();
+        stack.push(2);
+        stack.push(3);
+        assertTrue(stack.calculateOperation('-') == -1);
 
-//        System.out.println(stack.peek());
-//        System.out.println(stack.peekBefore());
-//        System.out.println(stack.peek());
-//        System.out.println(stack.peekBefore());
+        stack.push(2.5);
+        assertTrue(stack.calculateOperation('+') == 1.5);
 
+        stack.push(12.5);
+        assertTrue(stack.calculateOperation('+') == 14);
 
+        stack.push(7);
+        assertTrue(stack.calculateOperation('/') == 2);
+
+        stack.push(2);
+        assertTrue(stack.calculateOperation('*') == 4);
+    }
+
+    @org.junit.Test
+    public void clearStack() throws Exception {
+        RPNStack stack = new RPNStack();
+        for (int i = 1; i < 8; i++) {
+            stack.push(i);
+        }
+
+        stack.clearStack();
+        assertTrue(stack.getTail() == null);
     }
 }

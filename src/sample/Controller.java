@@ -6,15 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class Controller {
     private RPNStack rpnStack;
     private boolean lastActionWasOperator;
     private final String FILE_PATH;
-    @FXML private TextField textDisplay;
+    @FXML private TextField xRegister;
     @FXML private TextField yRegister;
     @FXML private Button button0;
     @FXML private Button button1;
@@ -29,13 +26,6 @@ public class Controller {
     @FXML private Button buttonAdd;
     @FXML private Button buttonSubtract;
     @FXML private Button buttonMultiply;
-    @FXML private Button buttonDivide;
-    @FXML private Button buttonEnter;
-    @FXML private Button buttonDecimal;
-    @FXML private Button buttonStore;
-    @FXML private Button buttonRetrieve;
-    @FXML private Button buttonBack;
-    @FXML private Button buttonReset;
 
     public Controller() {
         rpnStack = new RPNStack();
@@ -45,48 +35,42 @@ public class Controller {
 
     public void onOperandButtonClick(ActionEvent e) {
         if(lastActionWasOperator) {
-            textDisplay.clear();
+            xRegister.clear();
             yRegister.setText(String.valueOf(rpnStack.peek()));
             lastActionWasOperator = false;
         }
 
-
         if(e.getSource().equals(button0))
-            textDisplay.setText(textDisplay.getText() + "0");
+            xRegister.setText(xRegister.getText() + "0");
         else if(e.getSource().equals(button1))
-            textDisplay.setText(textDisplay.getText() + "1");
+            xRegister.setText(xRegister.getText() + "1");
         else if(e.getSource().equals(button2))
-            textDisplay.setText(textDisplay.getText() + "2");
+            xRegister.setText(xRegister.getText() + "2");
         else if(e.getSource().equals(button3))
-            textDisplay.setText(textDisplay.getText() + "3");
+            xRegister.setText(xRegister.getText() + "3");
         else if(e.getSource().equals(button4))
-            textDisplay.setText(textDisplay.getText() + "4");
+            xRegister.setText(xRegister.getText() + "4");
         else if(e.getSource().equals(button5))
-            textDisplay.setText(textDisplay.getText() + "5");
+            xRegister.setText(xRegister.getText() + "5");
         else if(e.getSource().equals(button6))
-            textDisplay.setText(textDisplay.getText() + "6");
+            xRegister.setText(xRegister.getText() + "6");
         else if(e.getSource().equals(button7))
-            textDisplay.setText(textDisplay.getText() + "7");
+            xRegister.setText(xRegister.getText() + "7");
         else if(e.getSource().equals(button8))
-            textDisplay.setText(textDisplay.getText() + "8");
+            xRegister.setText(xRegister.getText() + "8");
         else if(e.getSource().equals(button9))
-            textDisplay.setText(textDisplay.getText() + "9");
+            xRegister.setText(xRegister.getText() + "9");
     }
 
-    public void onOperatorButtonClick(ActionEvent e) {
-        if(textDisplay.getLength() != 0 && textDisplay.getLength() != 0.0 && rpnStack.getSize() > 0) {
+    public void onOperatorButtonClick(ActionEvent e) { //if user clicks on + - * / buttons
+        //if xRegister is not empty and stack has at least one item
+        if(xRegister.getLength() != 0 && rpnStack.getSize() > 0) {
             if(! lastActionWasOperator) {
-                System.out.println("We are here");
-                rpnStack.push(Double.parseDouble(textDisplay.getText()));
-                System.out.println("Size after push: " + rpnStack.getSize());
-                System.out.println("Top: " + rpnStack.peek());
+                rpnStack.push(Double.parseDouble(xRegister.getText()));
             }
 
-
             if(e.getSource().equals(buttonAdd)) {
-                System.out.println("And now we are here");
                 rpnStack.calculateOperation('+');
-                System.out.println("Size after addition: " + rpnStack.getSize());
                 yRegister.setText(String.valueOf(rpnStack.peekBefore()));
             } else if(e.getSource().equals(buttonSubtract)) {
                 rpnStack.calculateOperation('-');
@@ -99,36 +83,32 @@ public class Controller {
                 yRegister.setText(String.valueOf(rpnStack.peekBefore()));
             }
 
-            textDisplay.setText(String.valueOf(rpnStack.peek()));
+            xRegister.setText(String.valueOf(rpnStack.peek()));
             lastActionWasOperator = true;
-            System.out.println("Top now: " + rpnStack.peek());
         }
 
 
     }
 
     public void onDecimalButtonClick() {
-        if(! textDisplay.getText().contains("."))
-            textDisplay.setText(textDisplay.getText() + ".");
+        if(! xRegister.getText().contains("."))
+            xRegister.setText(xRegister.getText() + ".");
     }
 
     public void onEnterButtonClick() { //this method appears to be good
-        System.out.println("Size Before: " + rpnStack.getSize());
         if(! lastActionWasOperator) { //prevents user from keying something like "+" "ENTER"
-            if(textDisplay.getLength() != 0)
-                rpnStack.push(Double.parseDouble(textDisplay.getText()));
+            if(xRegister.getLength() != 0)
+                rpnStack.push(Double.parseDouble(xRegister.getText()));
 
             yRegister.setText(String.valueOf(rpnStack.peek()));
-            textDisplay.clear();
+            xRegister.clear();
         }
-        System.out.println("Size After: " + rpnStack.getSize());
-        System.out.println("===");
     }
 
     public void onBackButtonClick() {
-        int length = textDisplay.getLength();
+        int length = xRegister.getLength();
         if(length > 0)
-            textDisplay.setText(textDisplay.getText(0, length-1)); //removes the last char
+            xRegister.setText(xRegister.getText(0, length-1)); //removes the last char
     }
 
     public void onStoreButtonClick() {
@@ -139,20 +119,13 @@ public class Controller {
         }catch(IOException e) {
             e.printStackTrace();
         }
-
-//        Node current = rpnStack.getHead();
-//        for (int i = 0; i < rpnStack.getSize(); i++) {
-//            System.out.println(current.data);
-//            current = current.next;
-//        }
-//        System.out.println("===");
     }
 
     public void onRetrieveButtonClick() {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_PATH));
             String line = bufferedReader.readLine();
-            textDisplay.setText(line);
+            xRegister.setText(line);
             lastActionWasOperator = false;
             bufferedReader.close();
 
@@ -165,9 +138,8 @@ public class Controller {
 
     public void onButtonResetClick() { //not working
         rpnStack.clearStack();
-        textDisplay.clear();
+        xRegister.clear();
         yRegister.clear();
-        System.out.println("Size after clear: " + rpnStack.getSize());
     }
 
 }

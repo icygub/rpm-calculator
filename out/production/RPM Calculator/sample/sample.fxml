@@ -26,7 +26,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" />
    </rowConstraints>
    <children>
-      <TextField fx:id="textDisplay" editable="false" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+      <TextField fx:id="xRegister" editable="false" GridPane.columnSpan="3" GridPane.rowIndex="1" />
       <Button fx:id="button1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onOperandButtonClick" text="1" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Button fx:id="button2" mnemonicParsing="false" onAction="#onOperandButtonClick" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Button fx:id="button3" mnemonicParsing="false" onAction="#onOperandButtonClick" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />

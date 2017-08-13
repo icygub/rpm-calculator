@@ -12,14 +12,6 @@ public class Node {
         next = null;
     }
 
-    public void setPrev(double data) {
-        prev = new Node(data);
-    }
-
-    public void setNext(double data) {
-        next = new Node(data);
-    }
-
     public void setNext(Node node) {
         next = node;
     }
