@@ -48,10 +48,16 @@ public class RPNStack {
     }
 
     public double peek() {
-        if(size == 0)
+        if(size == 0) {
+            System.out.println("At the if statement");
             return 0; //this will be displayed in the Y register
-        else
+        }
+
+        else {
+            System.out.println("At the else statement");
             return tail.data;
+        }
+
     }
 
     public double peekBefore() {
@@ -80,7 +86,7 @@ public class RPNStack {
                             break;
             }
         }
-        size--;
+
         return result;
     }
 

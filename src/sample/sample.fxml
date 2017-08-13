@@ -45,8 +45,8 @@
       <Button fx:id="buttonMultiply" mnemonicParsing="false" onAction="#onOperatorButtonClick" text="*" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Button fx:id="buttonDivide" mnemonicParsing="false" onAction="#onOperatorButtonClick" text="/" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Button fx:id="buttonEnter" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onEnterButtonClick" text="Enter" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
-      <Button fx:id="buttonStore" mnemonicParsing="false" onAction="#onStoreRetrieveButtonClick" prefWidth="100.0" text="Store" GridPane.columnSpan="2" GridPane.rowIndex="7" />
-      <Button fx:id="buttonRetrieve" mnemonicParsing="false" onAction="#onStoreRetrieveButtonClick" prefWidth="100.0" text="Retrieve" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+      <Button fx:id="buttonStore" mnemonicParsing="false" onAction="#onStoreButtonClick" prefWidth="100.0" text="Store" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+      <Button fx:id="buttonRetrieve" mnemonicParsing="false" onAction="#onRetrieveButtonClick" prefWidth="100.0" text="Retrieve" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
       <Button fx:id="buttonDecimal" mnemonicParsing="false" onAction="#onDecimalButtonClick" text="." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
       <Button fx:id="buttonBack" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBackButtonClick" text="Back" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
       <TextField fx:id="yRegister" editable="false" GridPane.columnSpan="3" />

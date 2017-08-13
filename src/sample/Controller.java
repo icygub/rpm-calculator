@@ -5,9 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Controller {
     private RPNStack rpnStack;
     private boolean lastActionWasOperator;
+    private final String FILE_PATH;
     @FXML private TextField textDisplay;
     @FXML private TextField yRegister;
     @FXML private Button button0;
@@ -34,6 +39,7 @@ public class Controller {
     public Controller() {
         rpnStack = new RPNStack();
         lastActionWasOperator = false;
+        FILE_PATH = "files/storage.txt";
     }
 
     public void onOperandButtonClick(ActionEvent e) {
@@ -67,12 +73,19 @@ public class Controller {
     }
 
     public void onOperatorButtonClick(ActionEvent e) {
-        if(textDisplay.getLength() != 0 && rpnStack.getSize() > 1) {
-            if(! lastActionWasOperator)
+        if(textDisplay.getLength() != 0 && textDisplay.getLength() != 0.0 && rpnStack.getSize() > 0) {
+            if(! lastActionWasOperator) {
+                System.out.println("We are here");
                 rpnStack.push(Double.parseDouble(textDisplay.getText()));
+                System.out.println("Size after push: " + rpnStack.getSize());
+                System.out.println("Top: " + rpnStack.peek());
+            }
+
 
             if(e.getSource().equals(buttonAdd)) {
+                System.out.println("And now we are here");
                 rpnStack.calculateOperation('+');
+                System.out.println("Size after addition: " + rpnStack.getSize());
                 yRegister.setText(String.valueOf(rpnStack.peekBefore()));
             } else if(e.getSource().equals(buttonSubtract)) {
                 rpnStack.calculateOperation('-');
@@ -87,6 +100,7 @@ public class Controller {
 
             textDisplay.setText(String.valueOf(rpnStack.peek()));
             lastActionWasOperator = true;
+            System.out.println("Top now: " + rpnStack.peek());
         }
 
 
@@ -115,13 +129,25 @@ public class Controller {
             textDisplay.setText(textDisplay.getText(0, length-1)); //removes the last char
     }
 
-    public void onStoreRetrieveButtonClick() {
-        Node current = rpnStack.getHead();
-        for (int i = 0; i < rpnStack.getSize(); i++) {
-            System.out.println(current.data);
-            current = current.next;
+    public void onStoreButtonClick() {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(FILE_PATH), "utf-8"))){
+            writer.write(String.valueOf(rpnStack.peek()));
+            writer.close();
+        }catch(IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("===");
+
+//        Node current = rpnStack.getHead();
+//        for (int i = 0; i < rpnStack.getSize(); i++) {
+//            System.out.println(current.data);
+//            current = current.next;
+//        }
+//        System.out.println("===");
+    }
+
+    public void onRetrieveButtonClick() {
+
     }
 
     public void onButtonResetClick() { //not working
