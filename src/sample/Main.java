@@ -7,6 +7,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 //https://www.youtube.com/watch?v=7ha78yWRDlE
 //https://tedtheeconomist.wordpress.com/2015/07/06/how-to-use-rpn-calculators/comment-page-1/
+
+/**
+ * John Diaz
+ * CS 115 Final Project
+ */
 public class Main extends Application {
 
     @Override
