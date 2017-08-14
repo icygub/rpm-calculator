@@ -22,7 +22,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    //random comment
+    //random comment2
     public static void main(String[] args) {
         launch(args);
     }
